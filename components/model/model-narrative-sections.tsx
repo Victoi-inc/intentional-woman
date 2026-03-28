@@ -267,7 +267,7 @@ export function ModelNarrativeSections() {
             </p>
             <h2
               id="commitment-heading"
-              className="font-display relative z-[1] mb-8 text-3xl font-semibold tracking-tight sm:text-4xl"
+              className="font-display relative z-[1] mb-8 text-3xl font-semibold tracking-tight text-iw-white sm:text-4xl"
             >
               {COMMITMENT.title}
             </h2>

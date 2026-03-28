@@ -91,7 +91,7 @@ export function ContactDirectLine() {
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="mb-10 text-center sm:mb-12"
         >
-          <p className="font-accent mb-3 text-[10px] font-bold uppercase tracking-[0.38em] text-iw-purple/45">
+          <p className="font-accent mb-3 text-[10px] font-bold uppercase tracking-[0.38em] text-iw-gold">
             Contact — The direct line
           </p>
           <h1 className="font-display text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl lg:text-[2.65rem]">
