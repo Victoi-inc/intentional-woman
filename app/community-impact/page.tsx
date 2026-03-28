@@ -5,7 +5,7 @@ import { HallOfImpact } from "@/components/community-impact/hall-of-impact";
 export const metadata: Metadata = {
   title: "Community Impact | Intentional Woman",
   description:
-    "A legacy of intentionality—annual milestones, the Power Walk, mentors and keynote speakers, and the achievements that scaled our reach.",
+    "Intentional Woman Conference editions—No More Excuses (2023), Invest in Yourself. Grow (2024), Arise and Shine (2025), and The Audacity to Win coming soon—plus mentors, Power Walk, and impact milestones.",
 };
 
 export default function CommunityImpactPage() {

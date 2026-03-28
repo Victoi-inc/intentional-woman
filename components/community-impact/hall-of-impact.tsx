@@ -174,7 +174,11 @@ export function HallOfImpact() {
     <div className="bg-iw-mist">
       <div className="sticky top-16 z-40 border-b border-iw-purple/10 bg-iw-mist/92 py-3.5 backdrop-blur-md sm:top-[4.5rem]">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-2 px-4 text-center font-accent text-[10px] font-bold uppercase leading-snug tracking-[0.18em] text-iw-purple sm:gap-x-4 sm:text-xs sm:tracking-[0.2em]">
-          <span>3 Annual Conferences</span>
+          <span>3 Conference editions</span>
+          <span className="text-iw-gold" aria-hidden>
+            //
+          </span>
+          <span>4th · The Audacity to Win · Soon</span>
           <span className="text-iw-gold" aria-hidden>
             //
           </span>
@@ -182,7 +186,7 @@ export function HallOfImpact() {
           <span className="text-iw-gold" aria-hidden>
             //
           </span>
-          <span>1,200+ Lives Changed</span>
+          <span>1,200+ Lives changed</span>
         </div>
       </div>
 
@@ -194,7 +198,8 @@ export function HallOfImpact() {
           A Legacy of Intentionality
         </h1>
         <p className="font-sans mx-auto mt-5 max-w-2xl text-base leading-relaxed text-iw-purple/75 sm:text-lg">
-          The Hall of Impact—where numbers meet names, and every conference season builds on the last.
+          The Intentional Woman Conference in three themes so far—from “No More Excuses” to “Arise and
+          Shine”—with a fourth chapter, “The Audacity to Win,” on the horizon.
         </p>
       </div>
 
@@ -202,6 +207,7 @@ export function HallOfImpact() {
         <ImpactYearChapter {...TIMELINE.y2025} priority />
         <ImpactYearChapter {...TIMELINE.y2024} />
         <ImpactYearChapter {...TIMELINE.y2023} />
+        <ImpactYearChapter {...TIMELINE.upcoming} />
 
         <PowerWalkSection frames={WALK_FRAMES} />
 

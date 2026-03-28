@@ -20,7 +20,7 @@ export type ProgrammeTrackConfig = {
   listingSummary: string;
   /** Opening paragraphs on the programmes page (no bullets on the card) */
   overview: string[];
-  /** Full nested content for the read-more dialog */
+  /** Full nested content for the programme detail page */
   readMore: ProgrammeDetailNode[];
   /** Step 2: top-level programme names only (no nested focus areas) */
   offerings: ProgrammeOffering[];

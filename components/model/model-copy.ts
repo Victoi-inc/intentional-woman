@@ -3,7 +3,7 @@
 export const MODEL_HERO = {
   kicker: "Our Model",
   subkicker: "Intentional progression",
-  title: "Identity → Capability → Income → Leadership",
+  title: "",
   lead:
     "At the core of IWOMAN is a clear and intentional progression. We believe that sustainable economic empowerment begins internally with identity and must be supported externally through skills, systems, and opportunity.",
   programsLead:

@@ -1,35 +1,55 @@
-/** Unsplash sources — configured in next.config remotePatterns */
+/**
+ * Programme timeline: 1st & 3rd edition use local galleries (`edition-galleries.ts`);
+ * 2nd & upcoming use Unsplash (`next.config` remotePatterns).
+ */
+
+import {
+  FIRST_EDITION_GALLERY,
+  THIRD_EDITION_GALLERY,
+} from "./edition-galleries";
+
+export type ConferenceChapterTheme =
+  | "foundation"
+  | "awakening"
+  | "zenith"
+  | "upcoming";
 
 export const TIMELINE = {
-  y2025: {
-    year: "2025",
-    name: "Arise & Shine",
-    epithet: "The Zenith",
-    body: "Our largest gathering yet—three days of keynotes, breakouts, and covenant circles. The room proved what we already knew: when women move with intention, entire communities recalibrate.",
-    image:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Large conference hall with stage lighting and audience",
-    theme: "zenith" as const,
+  y2023: {
+    year: "2023",
+    name: "No More Excuses",
+    epithet: "First edition",
+    body: "We opened with a clear mandate: stop outsourcing your future to circumstance. Sessions tackled limiting beliefs, personal accountability, and the courage to begin—so women left with practical next steps, not another reason to wait.",
+    gallery: FIRST_EDITION_GALLERY,
+    theme: "foundation" as const,
   },
   y2024: {
     year: "2024",
-    name: "The Awakening",
-    epithet: "Deepening the Framework",
-    body: "We moved from inspiration to implementation—tighter curricula, longer mentorship arcs, and a shared language for systemic change that women could take back to their boards, businesses, and homes.",
+    name: "Invest in Yourself. Grow",
+    epithet: "Second edition",
+    body: "The room centred on self-investment as strategy—financial literacy intensives, skills and career growth tracks, wellbeing and resilience, and reframing development as capital you compound over time, not a luxury you postpone.",
     image:
-      "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Workshop participants seated in a bright training room",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Participants learning together in a workshop setting",
     theme: "awakening" as const,
   },
-  y2023: {
-    year: "2023",
-    name: "The Foundation",
-    epithet: "Where It Began",
-    body: "A small circle, a bold hypothesis, and the first public declaration that intention—not hustle—would be our north star. Every number since grew from this room.",
+  y2025: {
+    year: "2025",
+    name: "Arise and Shine",
+    epithet: "Third edition",
+    body: "We turned up the lights on visibility and voice—keynotes and breakouts on stepping forward with clarity, leadership in public and private life, and carrying purpose into rooms where decisions are made, so rising wasn’t a slogan but a shared practice.",
+    gallery: THIRD_EDITION_GALLERY,
+    theme: "zenith" as const,
+  },
+  upcoming: {
+    year: "Next",
+    name: "The Audacity to Win",
+    epithet: "Fourth edition · Coming soon",
+    body: "The next gathering will sharpen ambition with integrity—what it takes to compete, build, and finish strong without shrinking your values. Programme details, dates, and registration will be announced; join the list through our usual channels so you don’t miss the opening.",
     image:
-      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Team gathered for an early community event",
-    theme: "foundation" as const,
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Sunrise over hills—forward-looking, hopeful horizon",
+    theme: "upcoming" as const,
   },
 } as const;
 

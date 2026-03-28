@@ -2,24 +2,23 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {
-  type ProgrammeTrackConfig,
   type ProgrammeTrackId,
   PROGRAMME_TRACKS,
 } from "@/lib/programmes/registration-config";
-import { ProgrammeReadMoreDialog } from "./programme-read-more-dialog";
 import { ProgrammeRegistrationFlow } from "./programme-registration-flow";
 
 export function ProgrammesEngine() {
   const reduceMotion = useReducedMotion();
+  const searchParams = useSearchParams();
+  const trackQuery = searchParams.get("track");
   const [registrationOpen, setRegistrationOpen] = useState(false);
   const [prefillTrack, setPrefillTrack] = useState<ProgrammeTrackId | null>(
     null,
   );
   const [regKey, setRegKey] = useState(0);
-  const [readMoreTrack, setReadMoreTrack] =
-    useState<ProgrammeTrackConfig | null>(null);
 
   const openRegistration = useCallback((track?: ProgrammeTrackId) => {
     setPrefillTrack(track ?? null);
@@ -37,8 +36,14 @@ export function ProgrammesEngine() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.location.hash !== "#programme-registration") return;
-    openRegistration();
-  }, [openRegistration]);
+    const prefill: ProgrammeTrackId | undefined =
+      trackQuery === "personal" ||
+      trackQuery === "corporate" ||
+      trackQuery === "cohort"
+        ? trackQuery
+        : undefined;
+    openRegistration(prefill);
+  }, [openRegistration, trackQuery]);
 
   return (
     <div className="min-h-dvh bg-iw-mist">
@@ -105,13 +110,12 @@ export function ProgrammesEngine() {
               </div>
 
               <div className="mt-8 sm:mt-10">
-                <button
-                  type="button"
-                  onClick={() => setReadMoreTrack(section)}
-                  className="font-accent inline-flex min-h-[3rem] items-center justify-center rounded-sm border-2 border-iw-purple bg-iw-purple px-10 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-[background-color,border-color,color] hover:border-iw-gold hover:bg-iw-gold hover:text-iw-purple"
+                <Link
+                  href={`/programmes/${section.id}`}
+                  className="font-accent inline-flex min-h-[3rem] items-center justify-center rounded-sm border-2 border-iw-purple bg-iw-purple px-10 py-3.5 text-xs font-bold uppercase tracking-widest text-white no-underline transition-[background-color,border-color,color] hover:border-iw-gold hover:bg-iw-gold hover:text-iw-purple"
                 >
                   Read more
-                </button>
+                </Link>
               </div>
             </motion.section>
           ))}
@@ -130,7 +134,7 @@ export function ProgrammesEngine() {
             <strong className="font-medium text-iw-purple/80">Register</strong>{" "}
             on a section to start with that track, or{" "}
             <strong className="font-medium text-iw-purple/80">Read more</strong>{" "}
-            for the full outline first.
+            to open the full outline on its own page.
           </p>
         </div>
 
@@ -143,12 +147,6 @@ export function ProgrammesEngine() {
           </Link>
         </p>
       </div>
-
-      <ProgrammeReadMoreDialog
-        track={readMoreTrack}
-        onClose={() => setReadMoreTrack(null)}
-        onRegister={(trackId) => openRegistration(trackId)}
-      />
 
       {registrationOpen ? (
         <ProgrammeRegistrationFlow
