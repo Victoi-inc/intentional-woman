@@ -1,19 +1,8 @@
 "use client";
 
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import {
-  Building2,
-  CreditCard,
-  Smartphone,
-  Wallet,
-  type LucideIcon,
-} from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import {
-  BridgePaymentDialog,
-  type BridgePaymentMethod,
-} from "./bridge-payment-dialog";
 import {
   COHORT_AMOUNT_TIERS,
   SPONSOR_AMOUNT_TIERS,
@@ -22,52 +11,6 @@ import {
   type SupportContributionKind,
 } from "./support-access-data";
 import { SupportAccessFormDialog } from "./support-access-form-dialog";
-
-const PAYMENT_METHODS: readonly {
-  id: BridgePaymentMethod;
-  label: string;
-  Icon: LucideIcon;
-  accentClass: string;
-}[] = [
-  {
-    id: "mobile-money",
-    label: "Mobile Money",
-    Icon: Smartphone,
-    accentClass: "text-iw-purple",
-  },
-  {
-    id: "orange-money",
-    label: "Orange Money",
-    Icon: Wallet,
-    accentClass: "text-[#FF7900]",
-  },
-  {
-    id: "bank-transfer",
-    label: "Bank transfer",
-    Icon: Building2,
-    accentClass: "text-iw-purple/80",
-  },
-  {
-    id: "card",
-    label: "Card payment",
-    Icon: CreditCard,
-    accentClass: "text-iw-purple/80",
-  },
-] as const;
-
-const tileContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
-};
-
-const tileItem = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
 
 const tierMotion = {
   hidden: { opacity: 0, y: 20 },
@@ -81,14 +24,9 @@ const tierMotion = {
 export function BridgeSupportPage() {
   const reduceMotion = useReducedMotion();
   const instant = reduceMotion === true;
-  const tilesRef = useRef<HTMLDivElement>(null);
   const tiersRef = useRef<HTMLDivElement>(null);
-  const tilesInView = useInView(tilesRef, { once: true, amount: 0.3 });
   const tiersInView = useInView(tiersRef, { once: true, amount: 0.15 });
 
-  const [modalMethod, setModalMethod] = useState<BridgePaymentMethod | null>(
-    null,
-  );
   const [formOpen, setFormOpen] = useState(false);
   const [formKind, setFormKind] = useState<SupportContributionKind>(
     "sponsor-woman",
@@ -104,10 +42,6 @@ export function BridgeSupportPage() {
     setFormKind(kind);
     setFormInitialAmount(amountUsd);
     setFormOpen(true);
-  };
-
-  const openPayment = (id: BridgePaymentMethod) => {
-    setModalMethod(id);
   };
 
   return (
@@ -342,58 +276,6 @@ export function BridgeSupportPage() {
       </section>
 
       <section
-        className="border-t border-iw-purple/8 bg-iw-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"
-        aria-labelledby="payment-heading"
-      >
-        <div className="mx-auto max-w-4xl">
-          <h2
-            id="payment-heading"
-            className="font-display text-center text-2xl font-semibold tracking-tight text-iw-purple sm:text-3xl"
-          >
-            Ways to send your contribution
-          </h2>
-          <p className="font-sans mx-auto mt-4 max-w-2xl text-center text-base text-iw-purple/72">
-            After you submit the Support Access form, use one of these channels
-            to complete payment—or open a method now to view transfer details and
-            reference information.
-          </p>
-
-          <motion.div
-            ref={tilesRef}
-            className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
-            variants={tileContainer}
-            initial={instant ? false : "hidden"}
-            animate={instant || tilesInView ? "visible" : "hidden"}
-          >
-            {PAYMENT_METHODS.map(({ id, label, Icon, accentClass }) => (
-              <motion.div key={id} variants={tileItem}>
-                <button
-                  type="button"
-                  onClick={() => openPayment(id)}
-                  className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-2xl border border-iw-purple/12 bg-iw-mist/40 px-4 py-8 text-center shadow-[inset_0_2px_6px_rgb(75_36_106/0.07),0_1px_2px_rgb(0_0_0/0.04)] transition-[transform,box-shadow,border-color] hover:border-iw-gold/40 active:translate-y-px sm:py-10"
-                >
-                  <span
-                    className={`flex size-14 items-center justify-center rounded-xl bg-iw-white shadow-sm ring-1 ring-iw-purple/8 ${accentClass}`}
-                    aria-hidden
-                  >
-                    <Icon className="size-7 stroke-[1.35]" />
-                  </span>
-                  <span className="font-accent text-[11px] font-bold uppercase tracking-[0.14em] text-iw-purple sm:text-xs">
-                    {label}
-                  </span>
-                </button>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <p className="font-blueprint mx-auto mt-10 max-w-2xl text-center text-[11px] leading-relaxed text-iw-purple/50 sm:text-xs">
-            Include your name and contribution type in the reference where
-            possible so we can match your gift to your submission.
-          </p>
-        </div>
-      </section>
-
-      <section
         className="bg-iw-purple px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10"
         aria-labelledby="contact-cta-heading"
       >
@@ -419,10 +301,6 @@ export function BridgeSupportPage() {
         }}
         contributionKind={formKind}
         initialAmountUsd={formInitialAmount}
-      />
-      <BridgePaymentDialog
-        method={modalMethod}
-        onClose={() => setModalMethod(null)}
       />
     </div>
   );

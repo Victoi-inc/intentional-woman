@@ -187,16 +187,16 @@ export function PortalHero() {
             className="flex w-full max-w-md flex-col items-stretch gap-4 sm:max-w-none sm:flex-row sm:justify-center sm:gap-5"
           >
             <Link
-              href="/#programmes"
+              href="/programmes"
               className="font-accent inline-flex min-h-12 items-center justify-center rounded-sm bg-iw-gold px-8 text-sm font-bold uppercase tracking-widest text-iw-purple transition-[transform,box-shadow] hover:shadow-lg hover:shadow-iw-gold/35 active:scale-[0.98]"
             >
-              Join a Programme
+              Register for a program
             </Link>
             <Link
-              href="/programmes#programme-registration"
+              href="/model"
               className="font-accent inline-flex min-h-12 items-center justify-center rounded-sm border-2 border-white/95 bg-black/30 px-8 text-sm font-bold uppercase tracking-widest text-iw-white shadow-[0_4px_24px_rgb(0_0_0/0.4)] backdrop-blur-[8px] transition-[background-color] hover:bg-black/45"
             >
-              Register for a program
+              Explore our model
             </Link>
           </motion.div>
         </motion.div>
