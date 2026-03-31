@@ -178,7 +178,7 @@ export function PortalHero() {
             variants={itemShow}
             className="font-display max-w-prose text-2xl font-extralight leading-snug text-iw-gold sm:text-4xl md:max-w-none md:whitespace-nowrap md:text-[clamp(1.35rem,2.8vw,2.75rem)] md:leading-tight lg:text-5xl xl:text-6xl [text-shadow:0_1px_3px_rgb(0_0_0/0.85),0_4px_24px_rgb(0_0_0/0.5)]"
           >
-            Build the Life You Were Meant to Lead
+            Empowering Women to Thrive
           </motion.p>
 
           {/* 3. CTAs */}
