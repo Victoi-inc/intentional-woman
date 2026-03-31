@@ -40,7 +40,7 @@ export function PartnershipInvite() {
           </h2>
           <p className="font-sans mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-iw-white/85">
             Banks, NGOs, and enterprises partner with us to fund programmes built on
-            systems—not slogans—so impact is measurable and your stakeholders can
+            systems not slogans so impact is measurable and your stakeholders can
             trust the delivery.
           </p>
 

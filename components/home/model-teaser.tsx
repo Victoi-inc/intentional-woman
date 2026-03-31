@@ -86,10 +86,10 @@ export function ModelTeaser() {
           id="model-heading"
           className="font-display mb-4 max-w-2xl text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl"
         >
-          Identity, growth, leadership
+          Identity, Capability, Income, Leadership
         </h2>
         <p className="font-sans mb-14 max-w-2xl text-lg leading-relaxed text-iw-purple/80">
-          Three through-lines we walk with you—so who you are, how you expand, and
+          Three through-lines we walk with you so who you are, how you expand, and
           how you lead stay connected, not competing.
         </p>
 

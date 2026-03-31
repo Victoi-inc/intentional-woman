@@ -145,7 +145,7 @@ export function FeaturedProgramme() {
             Intentional Woman Conference
           </h2>
           <p className="font-sans mb-6 text-lg leading-relaxed text-iw-purple/80">
-            The Intentional Woman Conference is our flagship convening—a high-energy
+            The Intentional Woman Conference is our flagship convening a high-energy
             space where women gather to be equipped, challenged, and celebrated. It
             brings together teaching, testimony, and practical tools so you leave
             with clarity for your next chapter and connections that last beyond the

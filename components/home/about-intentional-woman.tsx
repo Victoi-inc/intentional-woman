@@ -44,15 +44,16 @@ export function AboutIntentionalWoman() {
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="font-accent mb-3 text-xs font-bold uppercase tracking-[0.35em] text-iw-gold">
-            About Intentional Woman
-          </p>
+          {/*  */}
           <h2
             id="about-heading"
             className="font-display mb-6 text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl"
           >
-            From potential to measurable outcomes
+                     About Intentional Woman
           </h2>
+          <p className="font-accent mb-3 text-xs font-bold uppercase tracking-[0.35em] text-iw-gold">
+            From potential to measurable outcomes
+          </p>
           <div className="font-sans space-y-5 text-lg leading-relaxed text-iw-purple/85 sm:text-xl">
             <p>
               <strong className="font-semibold text-iw-purple">

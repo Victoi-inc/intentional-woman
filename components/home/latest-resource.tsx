@@ -47,7 +47,7 @@ export function LatestResource() {
             </h3>
             <p className="font-sans mb-6 leading-relaxed text-iw-purple/80">
               A field guide for moving from scattered ambition to repeatable
-              outcomes—templates, reflection prompts, and the exact systems our
+              outcomes templates, reflection prompts, and the exact systems our
               cohorts use to lead without burning out.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
