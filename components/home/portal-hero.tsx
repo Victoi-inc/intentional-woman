@@ -169,18 +169,16 @@ export function PortalHero() {
           >
             <Link
               href="/conference-4"
-              className="font-accent group inline-flex items-center gap-2 rounded-full border border-iw-gold/60 bg-iw-purple/45 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-iw-gold no-underline shadow-[0_4px_20px_rgb(0_0_0/0.35)] backdrop-blur-md transition-[background-color,border-color] hover:border-iw-gold hover:bg-iw-purple/65 sm:text-xs"
+              className="font-accent group inline-flex max-w-[18rem] items-start gap-2 rounded-2xl border border-iw-gold/60 bg-iw-purple/45 px-4 py-2 text-center text-[10px] font-bold uppercase leading-snug tracking-[0.22em] text-iw-gold no-underline shadow-[0_4px_20px_rgb(0_0_0/0.35)] backdrop-blur-md transition-[background-color,border-color] hover:border-iw-gold hover:bg-iw-purple/65 sm:max-w-none sm:items-center sm:rounded-full sm:text-xs sm:leading-none"
             >
               <span
-                className="size-1.5 animate-pulse rounded-full bg-iw-gold"
+                className="mt-[3px] size-1.5 shrink-0 animate-pulse rounded-full bg-iw-gold sm:mt-0"
                 aria-hidden
               />
               <span>
-                <span className="hidden sm:inline">
-                  4th Intentional Woman Conference · 22 Aug 2026 ·{" "}
-                </span>
-                <span className="sm:hidden">4th Conference · </span>
-                Sponsor a woman →
+                4th Edition · Intentional Woman Conference · 22 Aug 2026 ·
+                Sponsor a woman
+                <span className="hidden sm:inline"> →</span>
               </span>
             </Link>
             <Link
@@ -224,10 +222,10 @@ export function PortalHero() {
             className="flex w-full max-w-md flex-col items-stretch gap-4 sm:max-w-none sm:flex-row sm:justify-center sm:gap-5"
           >
             <Link
-              href="/programmes"
+              href="/conference-4"
               className="font-accent inline-flex min-h-12 items-center justify-center rounded-sm bg-iw-gold px-8 text-sm font-bold uppercase tracking-widest text-iw-purple transition-[transform,box-shadow] hover:shadow-lg hover:shadow-iw-gold/35 active:scale-[0.98]"
             >
-              Register for a program
+              Register for the conference
             </Link>
             <Link
               href="/model"
