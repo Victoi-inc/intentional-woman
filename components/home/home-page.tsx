@@ -1,5 +1,6 @@
 "use client";
 
+import { ConferenceAnnouncement } from "./conference-announcement";
 import { FeaturedProgramme } from "./featured-programme";
 import { LatestResource } from "./latest-resource";
 import { ModelTeaser } from "./model-teaser";
@@ -14,6 +15,7 @@ export function HomePage() {
     <div className="flex min-h-0 flex-1 flex-col bg-iw-mist">
       <main className="flex flex-1 flex-col">
         <PortalHero />
+        <ConferenceAnnouncement />
         <AboutIntentionalWoman />
         <ModelTeaser />
         <StatTicker />

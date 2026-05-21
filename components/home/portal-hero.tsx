@@ -9,6 +9,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { EVENT_DATE_ISO } from "@/components/conference-4/conference-4-meta";
+import { CountdownTimer } from "@/components/conference-4/countdown-timer";
 
 /**
  * Hero tint: image brightness, then a single purple vertical gradient overlay
@@ -160,6 +162,41 @@ export function PortalHero() {
           initial="hidden"
           animate="show"
         >
+          {/* 0. Conference 4 announcement pill + countdown */}
+          <motion.div
+            variants={itemShow}
+            className="flex flex-col items-center gap-4"
+          >
+            <Link
+              href="/conference-4"
+              className="font-accent group inline-flex items-center gap-2 rounded-full border border-iw-gold/60 bg-iw-purple/45 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-iw-gold no-underline shadow-[0_4px_20px_rgb(0_0_0/0.35)] backdrop-blur-md transition-[background-color,border-color] hover:border-iw-gold hover:bg-iw-purple/65 sm:text-xs"
+            >
+              <span
+                className="size-1.5 animate-pulse rounded-full bg-iw-gold"
+                aria-hidden
+              />
+              <span>
+                <span className="hidden sm:inline">
+                  4th Intentional Woman Conference · 22 Aug 2026 ·{" "}
+                </span>
+                <span className="sm:hidden">4th Conference · </span>
+                Sponsor a woman →
+              </span>
+            </Link>
+            <Link
+              href="/conference-4"
+              aria-label="View conference details and sponsor a woman"
+              className="no-underline"
+            >
+              <CountdownTimer
+                targetIso={EVENT_DATE_ISO}
+                variant="compact"
+                tone="dark"
+                className="rounded-full border border-iw-white/15 bg-iw-purple/30 px-4 py-2 backdrop-blur-md transition-colors hover:border-iw-gold/50"
+              />
+            </Link>
+          </motion.div>
+
           {/* 1. Primary headline — two block lines so each centers cleanly (avoids tracking/balance skew) */}
           <motion.h1
             variants={itemShow}
