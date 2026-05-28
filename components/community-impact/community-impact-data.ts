@@ -3,10 +3,31 @@
  * 2nd & upcoming use Unsplash (`next.config` remotePatterns).
  */
 
+import type { StaticImageData } from "next/image";
+
 import {
   FIRST_EDITION_GALLERY,
+  SECOND_EDITION_GALLERY,
   THIRD_EDITION_GALLERY,
 } from "./edition-galleries";
+
+import walk1 from "@/assets/power walk/walk-1.jpeg";
+import walk2 from "@/assets/power walk/walk-2.jpeg";
+import walk3 from "@/assets/power walk/walk-3.jpeg";
+import walk4 from "@/assets/power walk/walk-4.jpeg";
+import walk5 from "@/assets/power walk/walk-5.jpeg";
+import walk6 from "@/assets/power walk/walk-6.jpeg";
+import walk7 from "@/assets/power walk/walk-7.jpeg";
+import walk8 from "@/assets/power walk/walk-8.jpeg";
+
+import spkDelphine from "@/assets/speakers/Delfine-Nforngwei.jpeg";
+import spkJude from "@/assets/speakers/Jude-Bonsi.jpeg";
+import spkChristelleE from "@/assets/speakers/Christelle-Essoka.jpeg";
+import spkAyuk from "@/assets/speakers/Ayuk-Rennet.jpeg";
+import spkLeila from "@/assets/speakers/Leila-KIGHA.jpeg";
+import spkCommy from "@/assets/speakers/Commy-Musa.jpeg";
+import spkTebo from "@/assets/speakers/Mme-Tebo-Louise.jpeg";
+import spkZeh from "@/assets/speakers/Zeh-Christelle-Nadesh.jpg";
 
 export type ConferenceChapterTheme =
   | "foundation"
@@ -28,9 +49,7 @@ export const TIMELINE = {
     name: "Invest in Yourself. Grow",
     epithet: "Second edition",
     body: "The room centred on self-investment as strategy—financial literacy intensives, skills and career growth tracks, wellbeing and resilience, and reframing development as capital you compound over time, not a luxury you postpone.",
-    image:
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Participants learning together in a workshop setting",
+    gallery: SECOND_EDITION_GALLERY,
     theme: "awakening" as const,
   },
   y2025: {
@@ -53,117 +72,79 @@ export const TIMELINE = {
   },
 } as const;
 
-export const WALK_FRAMES = [
-  {
-    src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
-    alt: "Women walking together outdoors in conversation",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1511632765099-3d61b0423d38?auto=format&fit=crop&w=800&q=80",
-    alt: "Community members on a group walk",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1517457371038-c7e9b730d3c7?auto=format&fit=crop&w=800&q=80",
-    alt: "Crowd in motion along a city street",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80",
-    alt: "Group walk through an urban plaza",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1529154168674-38b36d0dde42?auto=format&fit=crop&w=800&q=80",
-    alt: "Participants walking with banners at a community event",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80",
-    alt: "March for community awareness",
-  },
-] as const;
-
-export type MentorKind = "Keynote Speaker" | "Global Mentor";
+export const WALK_FRAMES: readonly { src: StaticImageData; alt: string }[] = [
+  { src: walk1, alt: "The iWoman Power Walk — participants in motion" },
+  { src: walk2, alt: "The iWoman Power Walk — walking together through the city" },
+  { src: walk3, alt: "The iWoman Power Walk — the crowd on the move" },
+  { src: walk4, alt: "The iWoman Power Walk — women marching with purpose" },
+  { src: walk5, alt: "The iWoman Power Walk — energy along the route" },
+  { src: walk6, alt: "The iWoman Power Walk — community on the walk" },
+  { src: walk7, alt: "The iWoman Power Walk — stepping out in unity" },
+  { src: walk8, alt: "The iWoman Power Walk — declaring the city ours" },
+];
 
 export const MENTORS: readonly {
   name: string;
   title: string;
-  kind: MentorKind;
-  src: string;
+  kind: string;
+  src: StaticImageData;
   alt: string;
 }[] = [
   {
-    name: "Dr. Amara Nkosi",
-    title: "Opening Keynote · Systems Leadership",
+    name: "Delphine Nforgwei",
+    title: "Coach & Counselor",
     kind: "Keynote Speaker",
-    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a keynote speaker",
+    src: spkDelphine,
+    alt: "Portrait of Delphine Nforgwei, Keynote Speaker",
   },
   {
-    name: "Elena Vasquez",
-    title: "Finance & Stewardship Track",
-    kind: "Global Mentor",
-    src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a mentor",
+    name: "Jude Bonsi",
+    title: "Information Systems Engineer",
+    kind: "Master Mind Instructor",
+    src: spkJude,
+    alt: "Portrait of Jude Bonsi, Master Mind Instructor",
   },
   {
-    name: "Chioma Okafor",
-    title: "Faith & Vocation Plenary",
-    kind: "Keynote Speaker",
-    src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a keynote speaker",
+    name: "Christelle Essoka",
+    title: "FIFA-Licensed Football Agent",
+    kind: "Panelist",
+    src: spkChristelleE,
+    alt: "Portrait of Christelle Essoka, Panelist",
   },
   {
-    name: "James Okonkwo",
-    title: "NGO Partnerships · West Africa",
-    kind: "Global Mentor",
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a mentor",
+    name: "Ayuk Rennet",
+    title: "Multimedia Journalist · Founder, Apex Communication",
+    kind: "Event Moderator (MC)",
+    src: spkAyuk,
+    alt: "Portrait of Ayuk Rennet, Event Moderator",
   },
   {
-    name: "Sarah Lin",
-    title: "Digital Equity & Access",
-    kind: "Keynote Speaker",
-    src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a keynote speaker",
+    name: "Leila Kigha",
+    title: "Communication & Brand Specialist",
+    kind: "Panelist",
+    src: spkLeila,
+    alt: "Portrait of Leila Kigha, Panelist",
   },
   {
-    name: "Fatima Al-Rashid",
-    title: "Coaching Cohort Lead · MENA",
-    kind: "Global Mentor",
-    src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a mentor",
+    name: "Commy Musa",
+    title:
+      "Field Communications Coordinator, West & Central Africa at CBM (Christian Blind Mission) · Founder, SisterSpeak237",
+    kind: "Speaker",
+    src: spkCommy,
+    alt: "Portrait of Commy Musa, Founder of SisterSpeak237",
   },
   {
-    name: "Rev. Denise Holt",
-    title: "Closing Charge · Covenant Circles",
-    kind: "Keynote Speaker",
-    src: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a keynote speaker",
+    name: "Mme Tebo Louise",
+    title: "HSE Professional, Oil & Gas",
+    kind: "Speaker",
+    src: spkTebo,
+    alt: "Portrait of Mme Tebo Louise, HSE Professional",
   },
   {
-    name: "Mireille Tchouassi",
-    title: "Regional Convening · Central Africa",
-    kind: "Global Mentor",
-    src: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a mentor",
-  },
-  {
-    name: "Priya Menon",
-    title: "Health & Wholeness Lab",
-    kind: "Global Mentor",
-    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a mentor",
-  },
-  {
-    name: "Dr. Keisha Boyd",
-    title: "Research & Impact Metrics",
-    kind: "Keynote Speaker",
-    src: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a keynote speaker",
-  },
-  {
-    name: "Anaïs Dubois",
-    title: "Entrepreneurship Studio · EU Hub",
-    kind: "Global Mentor",
-    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
-    alt: "Portrait of a mentor",
+    name: "Zeh Christelle Nadesh",
+    title: "Nurse Educator & Consultant",
+    kind: "Speaker",
+    src: spkZeh,
+    alt: "Portrait of Zeh Christelle Nadesh, Nurse Educator and Consultant",
   },
 ];

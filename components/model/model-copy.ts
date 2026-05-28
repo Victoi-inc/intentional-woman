@@ -75,8 +75,8 @@ export const PERSPECTIVE = {
   lead:
     "We see women’s empowerment as infrastructure. Not as inspiration alone, not as isolated events and definitely not as charity. We see women’s empowerment as a structured, continuous, and scalable system that drives:",
   bullets: [
-    "Economic participation",
-    "Workforce productivity",
+    "Identity development",
+    "Economic participation/workforce productivity",
     "Financial independence",
     "Leadership development",
   ],

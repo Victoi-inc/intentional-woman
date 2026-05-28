@@ -7,13 +7,13 @@ import {
   useTransform,
   useMotionTemplate,
 } from "framer-motion";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useRef } from "react";
 
 export function PowerWalkSection({
   frames,
 }: {
-  frames: readonly { src: string; alt: string }[];
+  frames: readonly { src: StaticImageData; alt: string }[];
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
@@ -58,7 +58,7 @@ export function PowerWalkSection({
           <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-5 pb-4 pt-2 [scrollbar-width:thin] sm:gap-5 sm:px-8 lg:px-10">
             {frames.map((frame, i) => (
               <figure
-                key={frame.src}
+                key={frame.alt}
                 className="relative w-[min(72vw,280px)] shrink-0 snap-center first:pl-0"
               >
                 <div className="relative aspect-[2/3] overflow-hidden rounded-sm border-[10px] border-iw-purple bg-black shadow-[0_0_0_2px_rgba(253,195,0,0.35),12px_12px_0_0_rgba(0,0,0,0.25)]">

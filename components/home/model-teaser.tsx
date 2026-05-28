@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MODEL_JOURNEY_STEPS } from "@/components/model/model-copy";
@@ -84,39 +85,58 @@ export function ModelTeaser() {
         </p>
         <h2
           id="model-heading"
-          className="font-display mb-4 max-w-2xl text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl"
+          className="font-display mb-12 max-w-3xl text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl"
         >
-          Identity, Capability, Income, Leadership
+          Identity <span aria-hidden className="text-iw-gold">→</span>{" "}
+          Capability <span aria-hidden className="text-iw-gold">→</span>{" "}
+          Income <span aria-hidden className="text-iw-gold">→</span> Leadership
         </h2>
-        <p className="font-sans mb-14 max-w-2xl text-lg leading-relaxed text-iw-purple/80">
-          Three through-lines we walk with you so who you are, how you expand, and
-          how you lead stay connected, not competing.
-        </p>
 
-        <ul className="grid gap-10 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+        <ol className="flex flex-col items-stretch gap-4 xl:flex-row">
           {MODEL_JOURNEY_STEPS.map((step, i) => (
-            <motion.li
-              key={step.id}
-              initial={{ opacity: 1, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: 0.55,
-                delay: i * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="rounded-2xl border border-iw-purple/10 bg-iw-white/80 p-8 shadow-sm ring-1 ring-iw-purple/5"
-            >
-              <div className="mb-5 text-iw-gold">{STEP_ICONS[i]}</div>
-              <h3 className="font-accent mb-3 text-sm font-bold uppercase tracking-[0.2em] text-iw-purple">
-                {step.label}
-              </h3>
-              <p className="font-sans text-sm leading-relaxed text-iw-purple/80 sm:text-base">
-                {step.description}
-              </p>
-            </motion.li>
+            <Fragment key={step.id}>
+              <motion.li
+                initial={{ opacity: 1, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.55,
+                  delay: i * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="flex-1 rounded-2xl border border-iw-purple/10 bg-iw-white/80 p-8 shadow-sm ring-1 ring-iw-purple/5"
+              >
+                <div className="mb-5 text-iw-gold">{STEP_ICONS[i]}</div>
+                <h3 className="font-accent mb-3 text-sm font-bold uppercase tracking-[0.2em] text-iw-purple">
+                  {step.label}
+                </h3>
+                <p className="font-sans text-sm leading-relaxed text-iw-purple/80 sm:text-base">
+                  {step.description}
+                </p>
+              </motion.li>
+              {i < MODEL_JOURNEY_STEPS.length - 1 && (
+                <li
+                  aria-hidden
+                  className="flex shrink-0 items-center justify-center text-iw-gold"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="size-7 rotate-90 xl:rotate-0"
+                    fill="none"
+                  >
+                    <path
+                      d="M5 12h14M13 6l6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </li>
+              )}
+            </Fragment>
           ))}
-        </ul>
+        </ol>
 
         <div className="mt-14 flex justify-center sm:justify-start">
           <Link

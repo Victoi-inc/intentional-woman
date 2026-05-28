@@ -20,8 +20,8 @@ export function AboutIntentionalWoman() {
         >
           <div className="relative aspect-[3/4] min-h-[280px] w-full overflow-hidden rounded-2xl shadow-xl ring-1 ring-iw-purple/10 sm:aspect-[4/5] sm:min-h-0">
             <Image
-              src="/images/founder.jpg"
-              alt="Mme Bambot Antoinette Epse Munkep, founder of Intentional Woman"
+              src="/images/founder-antoinette.jpg"
+              alt="Antoinette Nahbila Epse Munkep, founder of Intentional Woman"
               fill
               className="object-cover object-[center_20%]"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -33,7 +33,7 @@ export function AboutIntentionalWoman() {
               Founder
             </p>
             <p className="font-display mt-2 text-lg font-semibold leading-snug tracking-tight text-iw-purple sm:text-xl">
-              Mme Bambot Antoinette Epse Munkep
+              Antoinette Nahbila Epse Munkep
             </p>
           </div>
         </motion.div>
