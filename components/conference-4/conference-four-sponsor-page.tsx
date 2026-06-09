@@ -25,6 +25,30 @@ const CATEGORIES = [
   { id: "women-in-need", label: "Women in Need" },
 ] as const;
 
+const AGE_RANGES = [
+  "Under 18",
+  "18–24",
+  "25–34",
+  "35–44",
+  "45–54",
+  "55+",
+] as const;
+
+const PAYMENT_METHODS = [
+  {
+    id: "mtn",
+    label: "MTN Mobile Money",
+    blurb: "Pay securely with your MTN MoMo account.",
+  },
+  {
+    id: "orange",
+    label: "Orange Money",
+    blurb: "Pay securely with your Orange Money account.",
+  },
+] as const;
+
+type PaymentMethod = (typeof PAYMENT_METHODS)[number];
+
 const inputClass =
   "w-full rounded-lg border border-iw-purple/15 bg-iw-mist/40 px-4 py-2.5 font-sans text-iw-purple placeholder:text-iw-purple/35 focus:border-iw-gold focus:outline-none focus:ring-1 focus:ring-iw-gold";
 
@@ -52,7 +76,9 @@ export function ConferenceFourSponsorPage() {
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [address, setAddress] = useState("");
+  const [ageRange, setAgeRange] = useState<string>("");
   const [category, setCategory] = useState<string>("");
+  const [paymentMethodId, setPaymentMethodId] = useState<string>("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -71,6 +97,9 @@ export function ConferenceFourSponsorPage() {
     Math.round((SPONSORED_SO_FAR / SPONSOR_GOAL) * 100),
   );
 
+  const selectedMethod =
+    PAYMENT_METHODS.find((m) => m.id === paymentMethodId) ?? null;
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -83,13 +112,20 @@ export function ConferenceFourSponsorPage() {
         !fullName.trim() ||
         !email.trim() ||
         !whatsapp.trim() ||
-        !address.trim()
+        !address.trim() ||
+        !ageRange
       ) {
         setError(
-          "Please complete your name, email, WhatsApp number and address — or choose to sponsor anonymously.",
+          "Please complete your name, email, WhatsApp number, address and age range — or choose to sponsor anonymously.",
         );
         return;
       }
+    }
+    if (!paymentMethodId) {
+      setError(
+        "Please choose a payment method — MTN Mobile Money or Orange Money.",
+      );
+      return;
     }
     setSubmitted(true);
   }
@@ -100,6 +136,350 @@ export function ConferenceFourSponsorPage() {
 
   return (
     <div className="bg-iw-white text-iw-purple">
+      {/* SPONSOR FORM */}
+      <section
+        id="sponsor-form"
+        className="border-b border-iw-purple/8 bg-iw-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"
+        aria-labelledby="sponsor-form-heading"
+      >
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center">
+            <p className="font-accent mb-3 text-xs font-bold uppercase tracking-[0.3em] text-iw-gold">
+              The Intentional Woman Conference — 4th Edition
+            </p>
+            <h1
+              id="sponsor-form-heading"
+              className="font-display text-balance text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl"
+            >
+              Register your sponsorship
+            </h1>
+            <p className="font-sans mx-auto mt-4 max-w-xl text-base text-iw-purple/72 sm:text-lg">
+              Fill in your details below to sponsor a woman into the 4th edition.
+              Each registration is {formatFcfa(REGISTRATION_FEE_FCFA)}.
+            </p>
+          </div>
+
+          {submitted ? (
+            <ConfirmationPanel
+              name={isAnonymous ? null : fullName}
+              count={effectiveCount}
+              total={totalAmount}
+              method={selectedMethod}
+              onReset={() => {
+                setSubmitted(false);
+                setTimeout(() => scrollToId("sponsor-form"), 0);
+              }}
+            />
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="mt-10 rounded-2xl border border-iw-purple/10 bg-iw-mist/40 p-6 shadow-sm sm:p-8"
+              noValidate
+            >
+              {/* Sponsor info */}
+              <div>
+                <h2 className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
+                  Your details
+                </h2>
+
+                <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-lg border border-iw-purple/15 bg-iw-white p-4 transition-colors hover:border-iw-gold/40">
+                  <input
+                    type="checkbox"
+                    checked={isAnonymous}
+                    onChange={(e) => setIsAnonymous(e.target.checked)}
+                    className="mt-1 size-4 accent-iw-purple"
+                  />
+                  <span className="font-sans text-sm text-iw-purple sm:text-base">
+                    <span className="block font-semibold">
+                      I would like to remain anonymous
+                    </span>
+                    <span className="mt-0.5 block text-iw-purple/60">
+                      Your sponsorship will be recorded without your name being
+                      shown publicly.
+                    </span>
+                  </span>
+                </label>
+
+                {!isAnonymous ? (
+                  <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                    <label className="block sm:col-span-2">
+                      <span className={labelClass}>Full name</span>
+                      <input
+                        type="text"
+                        autoComplete="name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Jane Doe"
+                        className={inputClass}
+                      />
+                    </label>
+                    <label className="block">
+                      <span className={labelClass}>WhatsApp number</span>
+                      <input
+                        type="tel"
+                        autoComplete="tel"
+                        inputMode="tel"
+                        value={whatsapp}
+                        onChange={(e) => setWhatsapp(e.target.value)}
+                        placeholder="+237 ..."
+                        className={inputClass}
+                      />
+                    </label>
+                    <label className="block">
+                      <span className={labelClass}>Email address</span>
+                      <input
+                        type="email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className={inputClass}
+                      />
+                    </label>
+                    <label className="block">
+                      <span className={labelClass}>Age range</span>
+                      <select
+                        value={ageRange}
+                        onChange={(e) => setAgeRange(e.target.value)}
+                        className={`${inputClass} ${ageRange ? "" : "text-iw-purple/35"}`}
+                      >
+                        <option value="" disabled>
+                          Select your age range
+                        </option>
+                        {AGE_RANGES.map((range) => (
+                          <option
+                            key={range}
+                            value={range}
+                            className="text-iw-purple"
+                          >
+                            {range}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="block sm:col-span-2">
+                      <span className={labelClass}>Address</span>
+                      <input
+                        type="text"
+                        autoComplete="street-address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="City, neighbourhood, or full street address"
+                        className={inputClass}
+                      />
+                    </label>
+                  </div>
+                ) : null}
+              </div>
+
+              {/* Number of women + total */}
+              <div className="mt-8 border-t border-iw-purple/10 pt-7">
+                <fieldset>
+                  <legend className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
+                    How many women would you like to sponsor?
+                  </legend>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {PRESET_COUNTS.map((n) => {
+                      const active = !isCustom && selectedCount === n;
+                      return (
+                        <button
+                          key={n}
+                          type="button"
+                          onClick={() => {
+                            setSelectedCount(n);
+                            setCustomCount("");
+                          }}
+                          aria-pressed={active}
+                          className={`min-h-11 rounded-full border px-4 py-2 font-sans text-sm font-medium transition-colors ${
+                            active
+                              ? "border-iw-gold bg-iw-gold text-iw-purple"
+                              : "border-iw-purple/15 bg-iw-white text-iw-purple hover:border-iw-gold/45 hover:bg-iw-gold/10"
+                          }`}
+                        >
+                          {n} {n === 1 ? "Woman" : "Women"}
+                        </button>
+                      );
+                    })}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCount(CUSTOM_SENTINEL)}
+                      aria-pressed={isCustom}
+                      className={`min-h-11 rounded-full border px-4 py-2 font-sans text-sm font-medium transition-colors ${
+                        isCustom
+                          ? "border-iw-gold bg-iw-gold text-iw-purple"
+                          : "border-dashed border-iw-purple/25 bg-transparent text-iw-purple/85 hover:border-iw-gold/45"
+                      }`}
+                    >
+                      Custom number
+                    </button>
+                  </div>
+                  {isCustom ? (
+                    <div className="mt-4">
+                      <label className={labelClass} htmlFor="custom-count">
+                        Enter a custom number
+                      </label>
+                      <input
+                        id="custom-count"
+                        type="number"
+                        inputMode="numeric"
+                        min={1}
+                        max={500}
+                        value={customCount}
+                        onChange={(e) => setCustomCount(e.target.value)}
+                        placeholder="e.g. 25"
+                        className={`${inputClass} max-w-xs`}
+                      />
+                    </div>
+                  ) : null}
+                </fieldset>
+
+                {/* Total */}
+                <div className="mt-7 flex flex-col gap-1 rounded-xl border border-iw-gold/30 bg-iw-white p-5 sm:flex-row sm:items-baseline sm:justify-between">
+                  <div>
+                    <p className="font-accent text-[11px] font-bold uppercase tracking-[0.2em] text-iw-purple/55">
+                      Your total
+                    </p>
+                    <p className="font-sans mt-1 text-sm text-iw-purple/65">
+                      {effectiveCount > 0
+                        ? `${effectiveCount} ${effectiveCount === 1 ? "woman" : "women"} × ${formatFcfa(REGISTRATION_FEE_FCFA)}`
+                        : "Choose a number above"}
+                    </p>
+                  </div>
+                  <p className="font-display text-3xl font-semibold text-iw-purple sm:text-4xl">
+                    {formatFcfa(totalAmount)}
+                  </p>
+                </div>
+              </div>
+
+              {/* Optional category */}
+              <div className="mt-8 border-t border-iw-purple/10 pt-7">
+                <h3 className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
+                  Choose who you&apos;d like to support{" "}
+                  <span className="font-sans text-sm font-normal text-iw-purple/55">
+                    (optional)
+                  </span>
+                </h3>
+                <p className="font-sans mt-2 text-sm text-iw-purple/70">
+                  If you have a heart for a specific group of women, let us know.
+                  Otherwise leave this blank and your sponsorship will go where
+                  it&apos;s needed most.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {CATEGORIES.map((c) => {
+                    const active = category === c.id;
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => setCategory(active ? "" : c.id)}
+                        aria-pressed={active}
+                        className={`min-h-10 rounded-full border px-4 py-1.5 font-sans text-sm font-medium transition-colors ${
+                          active
+                            ? "border-iw-purple bg-iw-purple text-iw-white"
+                            : "border-iw-purple/15 bg-iw-white text-iw-purple hover:border-iw-purple/40"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Payment method */}
+              <div className="mt-8 border-t border-iw-purple/10 pt-7">
+                <h3 className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
+                  Choose a payment method
+                </h3>
+                <p className="font-sans mt-2 text-sm text-iw-purple/70">
+                  Select which provider you&apos;d like to pay with. You&apos;ll
+                  complete the payment securely on the next step.
+                </p>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {PAYMENT_METHODS.map((m) => {
+                    const active = paymentMethodId === m.id;
+                    return (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => setPaymentMethodId(m.id)}
+                        aria-pressed={active}
+                        className={`flex items-start gap-3 rounded-xl border p-5 text-left transition-colors ${
+                          active
+                            ? "border-iw-gold bg-iw-gold/10 ring-1 ring-iw-gold"
+                            : "border-iw-purple/15 bg-iw-white hover:border-iw-gold/45"
+                        }`}
+                      >
+                        <span
+                          aria-hidden
+                          className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                            active
+                              ? "border-iw-gold bg-iw-gold"
+                              : "border-iw-purple/25 bg-transparent"
+                          }`}
+                        >
+                          {active ? (
+                            <span className="size-2 rounded-full bg-iw-purple" />
+                          ) : null}
+                        </span>
+                        <span className="flex flex-col">
+                          <span className="font-display text-lg font-semibold text-iw-purple">
+                            {m.label}
+                          </span>
+                          <span className="font-sans mt-1 text-xs text-iw-purple/60">
+                            {m.blurb}
+                          </span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Optional message */}
+              <div className="mt-8 border-t border-iw-purple/10 pt-7">
+                <label className="block">
+                  <span className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
+                    A short message or prayer{" "}
+                    <span className="font-sans text-sm font-normal text-iw-purple/55">
+                      (optional)
+                    </span>
+                  </span>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    rows={4}
+                    placeholder="Write a word of encouragement for the women you're sponsoring..."
+                    className={`${inputClass} mt-3 resize-y`}
+                  />
+                </label>
+              </div>
+
+              {error ? (
+                <p
+                  role="alert"
+                  className="font-sans mt-6 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+                >
+                  {error}
+                </p>
+              ) : null}
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="font-sans text-sm text-iw-purple/65">
+                  You&apos;ll receive payment instructions on the next step.
+                </p>
+                <button
+                  type="submit"
+                  className="font-accent min-h-12 w-full rounded-sm bg-iw-gold px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-iw-purple transition-[filter,transform] hover:brightness-105 active:scale-[0.99] sm:w-auto sm:min-h-14 sm:px-10"
+                >
+                  Confirm sponsorship · {formatFcfa(totalAmount)}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </section>
+
       {/* HERO */}
       <section
         className="relative overflow-hidden border-b border-iw-purple/8 bg-iw-purple bg-iw-geometric-triangle px-5 py-20 text-iw-white sm:px-8 sm:py-24 lg:px-10"
@@ -109,13 +489,13 @@ export function ConferenceFourSponsorPage() {
           <p className="font-accent mb-4 text-xs font-bold uppercase tracking-[0.35em] text-iw-gold">
             The Intentional Woman Conference — 4th Edition
           </p>
-          <h1
+          <h2
             id="conf-hero-heading"
             className="font-display text-balance text-4xl font-semibold tracking-tight text-iw-white sm:text-5xl lg:text-6xl"
           >
             Fund Access.{" "}
             <span className="text-iw-gold">Scale impact.</span>
-          </h1>
+          </h2>
           <p className="font-sans mx-auto mt-6 max-w-2xl text-base leading-relaxed text-iw-white/85 sm:mt-8 sm:text-lg">
             Support Access helps fund women into transformational spaces that
             build leadership, growth, and economic empowerment. Every{" "}
@@ -242,272 +622,6 @@ export function ConferenceFourSponsorPage() {
         </div>
       </section>
 
-      {/* SPONSOR FORM */}
-      <section
-        id="sponsor-form"
-        className="border-b border-iw-purple/8 bg-iw-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"
-        aria-labelledby="sponsor-form-heading"
-      >
-        <div className="mx-auto max-w-3xl">
-          <div className="text-center">
-            <p className="font-accent mb-3 text-xs font-bold uppercase tracking-[0.3em] text-iw-gold">
-              Step 1 of 1
-            </p>
-            <h2
-              id="sponsor-form-heading"
-              className="font-display text-balance text-3xl font-semibold tracking-tight text-iw-purple sm:text-4xl"
-            >
-              How many women would you like to sponsor?
-            </h2>
-            <p className="font-sans mx-auto mt-4 max-w-xl text-base text-iw-purple/72 sm:text-lg">
-              Each registration is {formatFcfa(REGISTRATION_FEE_FCFA)}.
-            </p>
-          </div>
-
-          {submitted ? (
-            <ConfirmationPanel
-              name={isAnonymous ? null : fullName}
-              count={effectiveCount}
-              total={totalAmount}
-              onReset={() => {
-                setSubmitted(false);
-                setTimeout(() => scrollToId("sponsor-form"), 0);
-              }}
-            />
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="mt-10 rounded-2xl border border-iw-purple/10 bg-iw-mist/40 p-6 shadow-sm sm:p-8"
-              noValidate
-            >
-              <fieldset>
-                <legend className={labelClass}>Number of women</legend>
-                <div className="flex flex-wrap gap-2">
-                  {PRESET_COUNTS.map((n) => {
-                    const active = !isCustom && selectedCount === n;
-                    return (
-                      <button
-                        key={n}
-                        type="button"
-                        onClick={() => {
-                          setSelectedCount(n);
-                          setCustomCount("");
-                        }}
-                        aria-pressed={active}
-                        className={`min-h-11 rounded-full border px-4 py-2 font-sans text-sm font-medium transition-colors ${
-                          active
-                            ? "border-iw-gold bg-iw-gold text-iw-purple"
-                            : "border-iw-purple/15 bg-iw-white text-iw-purple hover:border-iw-gold/45 hover:bg-iw-gold/10"
-                        }`}
-                      >
-                        {n} {n === 1 ? "Woman" : "Women"}
-                      </button>
-                    );
-                  })}
-                  <button
-                    type="button"
-                    onClick={() => setSelectedCount(CUSTOM_SENTINEL)}
-                    aria-pressed={isCustom}
-                    className={`min-h-11 rounded-full border px-4 py-2 font-sans text-sm font-medium transition-colors ${
-                      isCustom
-                        ? "border-iw-gold bg-iw-gold text-iw-purple"
-                        : "border-dashed border-iw-purple/25 bg-transparent text-iw-purple/85 hover:border-iw-gold/45"
-                    }`}
-                  >
-                    Custom number
-                  </button>
-                </div>
-                {isCustom ? (
-                  <div className="mt-4">
-                    <label className={labelClass} htmlFor="custom-count">
-                      Enter a custom number
-                    </label>
-                    <input
-                      id="custom-count"
-                      type="number"
-                      inputMode="numeric"
-                      min={1}
-                      max={500}
-                      value={customCount}
-                      onChange={(e) => setCustomCount(e.target.value)}
-                      placeholder="e.g. 25"
-                      className={`${inputClass} max-w-xs`}
-                    />
-                  </div>
-                ) : null}
-              </fieldset>
-
-              {/* Total */}
-              <div className="mt-7 flex flex-col gap-1 rounded-xl border border-iw-gold/30 bg-iw-white p-5 sm:flex-row sm:items-baseline sm:justify-between">
-                <div>
-                  <p className="font-accent text-[11px] font-bold uppercase tracking-[0.2em] text-iw-purple/55">
-                    Your total
-                  </p>
-                  <p className="font-sans mt-1 text-sm text-iw-purple/65">
-                    {effectiveCount > 0
-                      ? `${effectiveCount} ${effectiveCount === 1 ? "woman" : "women"} × ${formatFcfa(REGISTRATION_FEE_FCFA)}`
-                      : "Choose a number above"}
-                  </p>
-                </div>
-                <p className="font-display text-3xl font-semibold text-iw-purple sm:text-4xl">
-                  {formatFcfa(totalAmount)}
-                </p>
-              </div>
-
-              {/* Sponsor info */}
-              <div className="mt-8 border-t border-iw-purple/10 pt-7">
-                <h3 className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
-                  Your details
-                </h3>
-
-                <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-lg border border-iw-purple/15 bg-iw-white p-4 transition-colors hover:border-iw-gold/40">
-                  <input
-                    type="checkbox"
-                    checked={isAnonymous}
-                    onChange={(e) => setIsAnonymous(e.target.checked)}
-                    className="mt-1 size-4 accent-iw-purple"
-                  />
-                  <span className="font-sans text-sm text-iw-purple sm:text-base">
-                    <span className="block font-semibold">
-                      I would like to remain anonymous
-                    </span>
-                    <span className="mt-0.5 block text-iw-purple/60">
-                      Your sponsorship will be recorded without your name being
-                      shown publicly.
-                    </span>
-                  </span>
-                </label>
-
-                {!isAnonymous ? (
-                  <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                    <label className="block sm:col-span-2">
-                      <span className={labelClass}>Full name</span>
-                      <input
-                        type="text"
-                        autoComplete="name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Jane Doe"
-                        className={inputClass}
-                      />
-                    </label>
-                    <label className="block">
-                      <span className={labelClass}>WhatsApp number</span>
-                      <input
-                        type="tel"
-                        autoComplete="tel"
-                        inputMode="tel"
-                        value={whatsapp}
-                        onChange={(e) => setWhatsapp(e.target.value)}
-                        placeholder="+237 ..."
-                        className={inputClass}
-                      />
-                    </label>
-                    <label className="block">
-                      <span className={labelClass}>Email address</span>
-                      <input
-                        type="email"
-                        autoComplete="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@example.com"
-                        className={inputClass}
-                      />
-                    </label>
-                    <label className="block sm:col-span-2">
-                      <span className={labelClass}>Address</span>
-                      <input
-                        type="text"
-                        autoComplete="street-address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="City, neighbourhood, or full street address"
-                        className={inputClass}
-                      />
-                    </label>
-                  </div>
-                ) : null}
-              </div>
-
-              {/* Optional category */}
-              <div className="mt-8 border-t border-iw-purple/10 pt-7">
-                <h3 className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
-                  Choose who you&apos;d like to support{" "}
-                  <span className="font-sans text-sm font-normal text-iw-purple/55">
-                    (optional)
-                  </span>
-                </h3>
-                <p className="font-sans mt-2 text-sm text-iw-purple/70">
-                  If you have a heart for a specific group of women, let us know.
-                  Otherwise leave this blank and your sponsorship will go where
-                  it&apos;s needed most.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {CATEGORIES.map((c) => {
-                    const active = category === c.id;
-                    return (
-                      <button
-                        key={c.id}
-                        type="button"
-                        onClick={() => setCategory(active ? "" : c.id)}
-                        aria-pressed={active}
-                        className={`min-h-10 rounded-full border px-4 py-1.5 font-sans text-sm font-medium transition-colors ${
-                          active
-                            ? "border-iw-purple bg-iw-purple text-iw-white"
-                            : "border-iw-purple/15 bg-iw-white text-iw-purple hover:border-iw-purple/40"
-                        }`}
-                      >
-                        {c.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Optional message */}
-              <div className="mt-8 border-t border-iw-purple/10 pt-7">
-                <label className="block">
-                  <span className="font-display text-xl font-semibold text-iw-purple sm:text-2xl">
-                    A short message or prayer{" "}
-                    <span className="font-sans text-sm font-normal text-iw-purple/55">
-                      (optional)
-                    </span>
-                  </span>
-                  <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    rows={4}
-                    placeholder="Write a word of encouragement for the women you're sponsoring..."
-                    className={`${inputClass} mt-3 resize-y`}
-                  />
-                </label>
-              </div>
-
-              {error ? (
-                <p
-                  role="alert"
-                  className="font-sans mt-6 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700"
-                >
-                  {error}
-                </p>
-              ) : null}
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="font-sans text-sm text-iw-purple/65">
-                  You&apos;ll receive payment instructions on the next step.
-                </p>
-                <button
-                  type="submit"
-                  className="font-accent min-h-12 w-full rounded-sm bg-iw-gold px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-iw-purple transition-[filter,transform] hover:brightness-105 active:scale-[0.99] sm:w-auto sm:min-h-14 sm:px-10"
-                >
-                  Pay {formatFcfa(totalAmount)} now
-                </button>
-              </div>
-            </form>
-          )}
-        </div>
-      </section>
-
       {/* TESTIMONIAL */}
       <section
         className="border-b border-iw-purple/8 bg-iw-purple px-5 py-16 text-iw-white sm:px-8 sm:py-20 lg:px-10"
@@ -563,11 +677,13 @@ function ConfirmationPanel({
   name,
   count,
   total,
+  method,
   onReset,
 }: {
   name: string | null;
   count: number;
   total: number;
+  method: PaymentMethod | null;
   onReset: () => void;
 }) {
   return (
@@ -590,40 +706,35 @@ function ConfirmationPanel({
         <span className="font-semibold text-iw-purple">
           {new Intl.NumberFormat("fr-FR").format(total)} FCFA
         </span>
-        . To complete your sponsorship, please send your payment using one of
-        the methods below — our team will confirm receipt and send you a
-        recap.
+        . You&apos;ve chosen to pay with{" "}
+        <span className="font-semibold text-iw-purple">
+          {method ? method.label : "your selected provider"}
+        </span>
+        . Continue to the secure checkout to complete your payment.
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-iw-purple/10 bg-iw-mist/40 p-5">
-          <p className="font-accent text-[11px] font-bold uppercase tracking-[0.2em] text-iw-purple/55">
-            MTN Mobile Money
-          </p>
-          <p className="font-display mt-2 text-lg font-semibold text-iw-purple">
-            +237 6 90 12 34 56
-          </p>
-          <p className="font-sans mt-1 text-xs text-iw-purple/60">
-            Account name: Intentional Woman
-          </p>
+      {method ? (
+        <div className="mt-6 flex items-center gap-3 rounded-xl border border-iw-gold/40 bg-iw-mist/40 p-5">
+          <span
+            aria-hidden
+            className="flex size-5 shrink-0 items-center justify-center rounded-full border-2 border-iw-gold bg-iw-gold"
+          >
+            <span className="size-2 rounded-full bg-iw-purple" />
+          </span>
+          <div>
+            <p className="font-accent text-[11px] font-bold uppercase tracking-[0.2em] text-iw-purple/55">
+              Payment provider
+            </p>
+            <p className="font-display mt-1 text-lg font-semibold text-iw-purple">
+              {method.label}
+            </p>
+          </div>
         </div>
-        <div className="rounded-xl border border-iw-purple/10 bg-iw-mist/40 p-5">
-          <p className="font-accent text-[11px] font-bold uppercase tracking-[0.2em] text-iw-purple/55">
-            Orange Money
-          </p>
-          <p className="font-display mt-2 text-lg font-semibold text-iw-purple">
-            +237 6 95 98 76 54
-          </p>
-          <p className="font-sans mt-1 text-xs text-iw-purple/60">
-            Account name: Intentional Woman
-          </p>
-        </div>
-      </div>
+      ) : null}
 
       <p className="font-sans mt-6 text-sm text-iw-purple/65">
-        Automated payment (in-page checkout) is coming soon. For now, please
-        send your transfer and reply to our confirmation message with the
-        transaction ID.
+        Secure in-page checkout is coming soon. Our team will reach out to
+        confirm your sponsorship and guide you through completing the payment.
       </p>
 
       <button
