@@ -168,7 +168,7 @@ export function PortalHero() {
             className="flex flex-col items-center gap-4"
           >
             <Link
-              href="/conference-4"
+              href="/conference-4#sponsor-access"
               className="font-accent group inline-flex max-w-[18rem] items-start gap-2 rounded-2xl border border-iw-gold/60 bg-iw-purple/45 px-4 py-2 text-center text-[10px] font-bold uppercase leading-snug tracking-[0.22em] text-iw-gold no-underline shadow-[0_4px_20px_rgb(0_0_0/0.35)] backdrop-blur-md transition-[background-color,border-color] hover:border-iw-gold hover:bg-iw-purple/65 sm:max-w-none sm:items-center sm:rounded-full sm:text-xs sm:leading-none"
             >
               <span
