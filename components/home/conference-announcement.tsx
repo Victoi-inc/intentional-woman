@@ -92,12 +92,14 @@ export function ConferenceAnnouncement() {
 
           {/* CTAs — mobile: 5th (bottom), md+: col 1 / row 3 */}
           <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center sm:gap-4 md:col-start-1 md:row-start-3 md:justify-start">
-            <Link
-              href="/conference-4"
+            <a
+              href="https://iwoman.kwiknkap.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-accent inline-flex min-h-12 w-full items-center justify-center rounded-sm bg-iw-gold px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-iw-purple no-underline transition-[filter,transform] hover:brightness-105 active:scale-[0.99] sm:min-h-14 sm:w-auto sm:px-10 md:min-h-12 md:px-7 md:py-3"
             >
-              Sponsor a woman
-            </Link>
+              Register for the conference
+            </a>
             <Link
               href="/conference-4#impact"
               className="font-accent inline-flex min-h-12 w-full items-center justify-center rounded-sm border-2 border-iw-white/40 bg-transparent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-iw-white/95 no-underline transition-colors hover:border-iw-gold hover:text-iw-gold sm:min-h-14 sm:w-auto sm:px-10 md:min-h-12 md:px-7 md:py-3"
